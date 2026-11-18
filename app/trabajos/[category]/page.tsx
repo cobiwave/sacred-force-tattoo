@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { WorkGallery } from "../../_components/WorkGallery";
-import { SiteFooter, SiteHeader } from "../../_components/SiteShell";
+import { WorkGallery } from "../../_components/WorkGallery/WorkGallery";
+import { SiteFooter, SiteHeader } from "../../_components/SiteShell/SiteShell";
 import styles from "./GalleryPage.module.css";
 
 const workCategories = {

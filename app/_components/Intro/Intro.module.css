@@ -1,0 +1,59 @@
+.intro {
+	padding-block: var(--space-section);
+	border-bottom: 1px solid var(--color-line);
+}
+.kicker {
+	grid-column: 1 / span 3;
+	padding-top: 0.7rem;
+}
+.copy {
+	grid-column: 4 / span 8;
+}
+.copy h2 {
+	font: 500 clamp(4.6rem, 6.5vw, 8.6rem) / 0.99 var(--font-display);
+	letter-spacing: -0.025em;
+}
+.copy em {
+	color: #777;
+	font-style: normal;
+}
+.copy > p {
+	max-width: 38rem;
+	margin: 4.6rem 0 0 auto;
+	color: #555;
+	font-size: 1.4rem;
+	line-height: 1.8;
+}
+.link {
+	grid-column: 11 / -1;
+	align-self: end;
+	justify-self: end;
+	white-space: nowrap;
+	padding-bottom: 0.9rem;
+	border-bottom: 1px solid;
+	font-size: 0.9rem;
+}
+.link span {
+	margin-left: 2.8rem;
+}
+
+@media (width <= 48em) {
+	.kicker,
+	.copy,
+	.link {
+		grid-column: 1 / -1;
+	}
+	.kicker {
+		margin-bottom: 3rem;
+	}
+	.copy h2 {
+		font-size: clamp(4.6rem, 9vw, 7.2rem);
+	}
+	.copy > p {
+		margin: 3rem 0 0;
+	}
+	.link {
+		justify-self: end;
+		margin-top: 3rem;
+	}
+}

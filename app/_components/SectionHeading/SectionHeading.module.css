@@ -1,0 +1,41 @@
+.heading {
+	align-items: start;
+	margin-bottom: 5.4rem;
+}
+.kicker {
+	grid-column: 1 / span 4;
+	padding-top: 0.7rem;
+}
+.heading h2 {
+	grid-column: 5 / -1;
+	font: 600 clamp(7.2rem, 11vw, 14rem) / 0.8 var(--font-display);
+	letter-spacing: -0.04em;
+}
+
+/* Kicker above the title; the parent places the block on its grid. */
+.stacked {
+	margin-bottom: 0;
+}
+.stacked .kicker {
+	margin-bottom: 1.4rem;
+}
+
+@media (width <= 48em) {
+	.kicker {
+		grid-column: 1 / span 3;
+	}
+	.heading h2 {
+		grid-column: 4 / -1;
+		font-size: clamp(7.2rem, 16vw, 12rem);
+	}
+}
+
+@media (width <= 32em) {
+	.heading {
+		row-gap: 2rem;
+	}
+	.kicker,
+	.heading h2 {
+		grid-column: 1 / -1;
+	}
+}

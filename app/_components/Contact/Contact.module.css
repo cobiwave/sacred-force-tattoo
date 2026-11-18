@@ -1,0 +1,133 @@
+.contact {
+	padding-block: var(--space-section);
+	border-bottom: 1px solid var(--color-line);
+}
+.grid {
+	margin-top: 7.5rem;
+	border-top: 1px solid var(--color-line);
+	border-bottom: 1px solid var(--color-line);
+}
+.cell {
+	grid-column: span 3;
+	min-height: 19rem;
+	padding: 2.2rem 1.8rem;
+	border-right: 1px solid var(--color-line);
+}
+.cell:first-child {
+	padding-left: 0;
+}
+.cell:last-child {
+	border-right: 0;
+}
+.cell > p {
+	margin-bottom: 2.8rem;
+	color: var(--color-muted);
+	font-size: 0.9rem;
+}
+.cell > a {
+	display: block;
+	width: fit-content;
+	margin-bottom: 0.5rem;
+	font-size: 1.25rem;
+	line-height: 1.8;
+}
+.cell > a:hover,
+.cta a:hover {
+	opacity: 0.55;
+}
+
+.cta {
+	grid-column: 1 / -1;
+	grid-template-columns: subgrid;
+	padding-top: 10rem;
+}
+.cta > p {
+	grid-column: 1 / span 7;
+	font: 600 clamp(6rem, 9vw, 12rem) / 0.85 var(--font-display);
+	letter-spacing: -0.03em;
+}
+.cta > div {
+	display: grid;
+	grid-column: 9 / -1;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	align-self: start;
+	gap: 1.2rem;
+	padding-top: 1rem;
+}
+.cta a {
+	min-width: 0;
+	padding-bottom: 0.7rem;
+	border-bottom: 1px solid;
+	font: 1.3rem/1.5 var(--font-mono);
+	letter-spacing: 0.025em;
+}
+
+@media (width <= 75em) and (width > 48em) {
+	.cta > p {
+		grid-column: 1 / span 4;
+	}
+	.cta > div {
+		grid-column: 5 / -1;
+	}
+}
+
+@media (width <= 75em) {
+	.cell {
+		grid-column: span 4;
+		border-bottom: 1px solid var(--color-line);
+	}
+	.cell:nth-child(2) {
+		border-right: 0;
+	}
+	.cell:nth-child(3) {
+		padding-left: 0;
+	}
+	.cell:nth-child(n + 3) {
+		border-bottom: 0;
+	}
+}
+
+@media (width <= 48em) {
+	.cell {
+		min-height: 16rem;
+		padding: 1.8rem 1.2rem;
+	}
+	.cell:first-child,
+	.cell:nth-child(3) {
+		padding-left: 0;
+	}
+	.cell:nth-child(2) {
+		border-right: 0;
+	}
+	.cell:nth-child(n + 3) {
+		border-bottom: 0;
+	}
+	.cta {
+		padding-top: 7rem;
+	}
+	.cta > p {
+		grid-column: 1 / -1;
+		font-size: clamp(6.4rem, 15vw, 10rem);
+	}
+	.cta > div {
+		grid-column: 1 / -1;
+		margin-top: 1rem;
+	}
+}
+
+@media (width <= 32em) {
+	.grid {
+		grid-template-columns: 1fr;
+	}
+	.cell,
+	.cell:nth-child(n) {
+		grid-column: 1 / -1;
+		min-height: 0;
+		padding: 1.8rem 0;
+		border-right: 0;
+		border-bottom: 1px solid var(--color-line);
+	}
+	.cell:last-child {
+		border-bottom: 0;
+	}
+}

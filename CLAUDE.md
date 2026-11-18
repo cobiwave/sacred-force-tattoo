@@ -25,14 +25,13 @@ This is the marketing site for Sacred Force Tattoo, a studio in Tribunales, Buen
 
 ## Architecture
 
-- **Routes:** `app/page.tsx` renders `StudioHome`, a large client component holding the hero, intro, team and category sections. `app/trabajos/[category]/page.tsx` is a server component. Its `workCategories` map is the single source of truth for valid slugs, titles, descriptions and the "next category" cycle. `generateStaticParams` builds from that map, and unknown slugs call `notFound()`. A new category also needs an entry in `categories` in `StudioHome.tsx` and in the `WorkCategory` type in `WorkGallery.tsx`.
+- **Routes:** `app/page.tsx` is a server component that renders the header, the home sections in order (`Hero`, `Intro`, `Team`, `Works`, `Atmosphere`, `Contact`) and the footer. Each section is its own client component with its own CSS module, following the reference project. Every component lives in a folder named after it (`app/_components/Hero/Hero.tsx` + `Hero.module.css`) and is imported by its full path (`./_components/Hero/Hero`); there are no `index.ts` barrels. `SectionHeading` is the shared kicker + `h2` heading used by `Team`, `Works` (`layout="stacked"`) and `Contact`. It takes a `ref`; the parent section animates it by revealing `childrenOf(headingRef.current)` (`autoAlpha: 0, y: 16`, word stagger) at the start of its timeline, as in the reference project. `app/trabajos/[category]/page.tsx` is a server component. Its `workCategories` map is the single source of truth for valid slugs, titles, descriptions and the "next category" cycle. `generateStaticParams` builds from that map, and unknown slugs call `notFound()`. A new category also needs an entry in `categories` in `Works.tsx` and in the `WorkCategory` type in `WorkGallery.tsx`.
 - **Shared chrome:** `SiteShell.tsx` exports `SiteHeader` and `SiteFooter`, which each page renders itself (they are not in the layout). `layout.tsx` mounts `CustomCursor` globally. It also loads `GridOverlay` dynamically in development only (press `G` to toggle it; the state persists in localStorage).
 - **Motion (`app/_lib/motion.ts`):** all GSAP usage goes through this module. It registers `useGSAP`, `ScrollTrigger` and `SplitText` once, and re-exports `gsap`. Import from it instead of from `gsap` directly.
   - `motion` holds the shared duration, ease, offset and stagger tokens.
   - `useMotion(scopeRef, { full, reduced })` wraps `useGSAP` and `gsap.matchMedia` to branch on `prefers-reduced-motion`. In both branches it ends by setting `autoAlpha: 1` on the scope, so animated sections start hidden in CSS and are revealed here.
   - `revealTimeline(trigger)` returns a timeline with the shared defaults and a one-shot ScrollTrigger at `top 62%`. `splitWords` wraps SplitText with masked words.
-  - Animation targets are found through `data-*` attributes (`data-hero-title`, `data-intro`, `data-team`, `data-artist`, …), not CSS-module class names.
-- **Preloader:** `StudioHome` waits for the hero `<video>` to be able to play, with a 2.5 s fallback, before it exits the loader (`loaderPhase`). `layout.tsx` hides `[data-preloader]` under `<noscript>`.
+  - Each section owns its animation: its root `<section>` has `data-reveal` (hidden in `globals.css` until `useMotion` reveals it; `layout.tsx` un-hides it under `<noscript>`) and is passed as the `useMotion` scope. Targets are reached through `useRef`s (`childrenOf(listRef.current)` for staggered lists), not CSS-module class names or `data-*` selectors. Sections below the fold pass their own root to `revealTimeline(...)`; the hero omits the trigger so it plays on load.
 - **Styling:** CSS Modules per component, plus `app/globals.css` for the tokens and the grid.
   - `html` has `font-size: 62.5%`, so `1rem` = 10px.
   - The global `.container` is a CSS grid with 4, 8 or 12 columns (breakpoints at `48em` and `75em`). `.subgrid` spans the full width and inherits those columns. Lay out components by placing them on `grid-column` within these; avoid ad-hoc widths.
@@ -42,8 +41,8 @@ This is the marketing site for Sacred Force Tattoo, a studio in Tribunales, Buen
 ## Assets
 
 - All media (images, video, SVGs) goes in `public/assets/` only. Don't create media folders at the repo root. Reference files by their root-relative paths (`/assets/...`).
-- The team portraits and gallery images are placeholder SVGs, and the UI labels them that way ("FOTO REAL PENDIENTE"). To swap in real photos, replace the files in place, keeping their names, or update the paths and alt text in `WorkGallery.tsx` and `StudioHome.tsx`.
-- The hero video is `public/assets/video/bg-video.mp4` (muted MP4), with `public/assets/atmosphere/studio-poster.svg` as its poster.
+- The team portraits and gallery images are placeholder SVGs, and the UI labels them that way ("FOTO REAL PENDIENTE"). To swap in real photos, replace the files in place, keeping their names, or update the paths and alt text in `WorkGallery.tsx` and `Team.tsx`.
+- The hero video is rendered by `HeroVideo.tsx` from `public/assets/video/bg-video.webm` (VP9) with `bg-video.mp4` as fallback, and `bg-video-poster.webp` (first frame) as its poster. It has no `autoPlay`: it plays from a `useEffect` unless `prefers-reduced-motion` is set. If you replace the video, regenerate the WebM and poster from the MP4 (`ffmpeg … -c:v libvpx-vp9 -crf 36` and `cwebp`).
 
 ## GSAP skills
 

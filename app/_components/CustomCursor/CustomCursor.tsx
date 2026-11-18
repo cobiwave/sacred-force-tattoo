@@ -2,7 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
-import { gsap } from "../_lib/motion";
+import { gsap } from "@/app/_lib/motion";
 import styles from "./CustomCursor.module.css";
 
 export function CustomCursor() {

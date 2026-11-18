@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { CustomCursor } from "./_components/CustomCursor";
+import { CustomCursor } from "./_components/CustomCursor/CustomCursor";
 import "./globals.css";
 
 const GridOverlay = process.env.NODE_ENV === "development"
-  ? dynamic(() => import("./_components/GridOverlay").then((module) => module.GridOverlay))
+  ? dynamic(() => import("./_components/GridOverlay/GridOverlay").then((module) => module.GridOverlay))
   : () => null;
 
 export const metadata: Metadata = {

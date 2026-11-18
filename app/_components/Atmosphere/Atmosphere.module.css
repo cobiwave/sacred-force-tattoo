@@ -1,0 +1,54 @@
+.atmosphere {
+	padding-block: var(--space-section);
+	border-bottom: 1px solid var(--color-line);
+}
+.image {
+	position: relative;
+	grid-column: 1 / span 7;
+	overflow: hidden;
+}
+.image img {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 1.35;
+	object-fit: cover;
+	filter: grayscale(1);
+}
+.image figcaption {
+	position: absolute;
+	bottom: 1.5rem;
+	left: 1.5rem;
+	color: #fff;
+	font-size: 0.85rem;
+}
+.copy {
+	grid-column: 9 / span 4;
+	align-self: end;
+}
+.copy > p:last-child {
+	margin-top: 5rem;
+	font: 500 clamp(3rem, 4vw, 5rem) / 1.05 var(--font-display);
+}
+
+@media (width <= 48em) {
+	.image {
+		grid-column: 1 / span 2;
+	}
+	.copy {
+		grid-column: 3 / span 2;
+	}
+	.copy > p:last-child {
+		margin-top: 2.8rem;
+		font-size: 3.4rem;
+	}
+}
+
+@media (width <= 32em) {
+	.image {
+		grid-column: 1 / -1;
+	}
+	.copy {
+		grid-column: 1 / -1;
+		margin-top: 3rem;
+	}
+}
