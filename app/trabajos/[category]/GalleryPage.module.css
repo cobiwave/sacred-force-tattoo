@@ -17,7 +17,7 @@
 }
 .hero h1 {
 	grid-column: 1 / -1;
-	margin-bottom: 2.2rem;
+	margin-bottom: calc(0.22em + 2.2rem);
 	font: 700 clamp(8.5rem, 19vw, 24rem) / 0.8 var(--font-display);
 	letter-spacing: -0.045em;
 }
