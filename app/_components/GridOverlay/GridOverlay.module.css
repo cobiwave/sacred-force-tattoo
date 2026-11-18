@@ -1,42 +1,54 @@
 .overlay {
-  position: fixed;
-  z-index: 100;
-  inset: 0;
-  display: none;
-  pointer-events: none;
+	position: fixed;
+	z-index: 100;
+	inset: 0;
+	display: none;
+	pointer-events: none;
 }
 
 :global(html[data-grid-overlay]) .overlay {
-  display: grid;
+	display: grid;
 }
 
 .overlay::after {
-  position: fixed;
-  right: 1.2rem;
-  bottom: 1.2rem;
-  padding: 0.4rem 0.8rem;
-  color: #fff;
-  background: #111d;
-  content: "Mobile · 4 columnas";
-  font: 500 1.1rem/1.4 var(--font-mono);
+	position: fixed;
+	right: 1.2rem;
+	bottom: 1.2rem;
+	padding: 0.4rem 0.8rem;
+	color: #fff;
+	background: rgb(255 0 110);
+	content: "Mobile · 4 columnas";
+	font: 500 1.1rem/1.4 var(--font-mono);
 }
 
 .column {
-  background: rgb(0 0 0 / 4%);
-  box-shadow: inset 1px 0 rgb(0 0 0 / 16%), inset -1px 0 rgb(0 0 0 / 16%);
+	background: rgb(255 0 110 / 10%);
+	box-shadow:
+		inset 1px 0 rgb(255 0 110 / 55%),
+		inset -1px 0 rgb(255 0 110 / 55%);
 }
 
 .column:nth-child(n + 5) {
-  display: none;
+	display: none;
 }
 
 @media (width >= 48em) {
-  .overlay::after { content: "Tablet · 8 columnas"; }
-  .column:nth-child(n + 5) { display: block; }
-  .column:nth-child(n + 9) { display: none; }
+	.overlay::after {
+		content: "Tablet · 8 columnas";
+	}
+	.column:nth-child(n + 5) {
+		display: block;
+	}
+	.column:nth-child(n + 9) {
+		display: none;
+	}
 }
 
 @media (width >= 75em) {
-  .overlay::after { content: "Desktop · 12 columnas"; }
-  .column:nth-child(n + 9) { display: block; }
+	.overlay::after {
+		content: "Desktop · 12 columnas";
+	}
+	.column:nth-child(n + 9) {
+		display: block;
+	}
 }
