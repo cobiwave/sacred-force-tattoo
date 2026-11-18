@@ -134,6 +134,10 @@ video {
 }
 
 
+:where([data-reveal]) {
+  visibility: hidden;
+}
+
 :where(.split-word-mask) {
   overflow: clip;
   padding: 0.1em;

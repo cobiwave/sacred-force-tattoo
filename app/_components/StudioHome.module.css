@@ -1,59 +1,6 @@
 .page {
 	overflow: clip;
 }
-.preloader {
-	position: fixed;
-	z-index: 1000;
-	inset: 0;
-	display: grid;
-	grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
-	align-content: center;
-	gap: 2rem var(--grid-gutter);
-	padding: var(--grid-margin);
-	color: var(--color-bg);
-	background: #111;
-	opacity: 1;
-	visibility: visible;
-	transition: opacity 0.45s ease, visibility 0.45s ease;
-	animation: preloaderFailsafe 3.2s ease forwards;
-}
-@keyframes preloaderFailsafe {
-	0%, 84% {
-		opacity: 1;
-		visibility: visible;
-		pointer-events: auto;
-	}
-	100% {
-		opacity: 0;
-		visibility: hidden;
-		pointer-events: none;
-	}
-}
-.preloaderLeaving {
-	animation: none;
-	pointer-events: none;
-	opacity: 0;
-	visibility: hidden;
-}
-.preloaderMark {
-	grid-column: 1 / -1;
-	font: 800 clamp(8rem, 22vw, 18rem) / 0.72 var(--font-display);
-	letter-spacing: 0.02em;
-}
-.preloaderLabel {
-	grid-column: 1 / -1;
-	justify-self: end;
-	min-width: min(100%, 28rem);
-	padding-top: 1rem;
-	border-top: 1px solid rgb(242 241 238 / 48%);
-	text-align: right;
-}
-@media (prefers-reduced-motion: reduce) {
-	.preloader {
-		animation: preloaderFailsafe 3.2s steps(1, end) forwards;
-		transition: none;
-	}
-}
 .mono {
 	font: 1rem/1.45 var(--font-mono);
 	letter-spacing: 0.08em;

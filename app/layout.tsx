@@ -21,7 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="es-AR">
       <body>
         <noscript>
-          <style>{"[data-preloader] { display: none !important; }"}</style>
+          <style>{"[data-reveal] { visibility: visible !important; }"}</style>
         </noscript>
         {children}
         <CustomCursor />

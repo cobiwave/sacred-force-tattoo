@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useMotion, splitWords, revealTimeline, motion, gsap, childrenOf } from "../_lib/motion";
 import { SiteFooter, SiteHeader } from "./SiteShell";
 import styles from "./StudioHome.module.css";
@@ -20,48 +20,6 @@ const categories = [
 
 export function StudioHome() {
   const pageRef = useRef<HTMLElement | null>(null);
-  const [loaderPhase, setLoaderPhase] = useState<"loading" | "leaving" | "done">("loading");
-
-  useEffect(() => {
-    const video = pageRef.current?.querySelector("video");
-    const showVideo = () => video?.parentElement?.classList.add(styles.hasVideo);
-    let completed = false;
-    let exitTimer: number | undefined;
-
-    const finishLoading = () => {
-      if (completed) return;
-      completed = true;
-      window.clearTimeout(fallbackTimer);
-      video?.removeEventListener("canplay", finishLoading);
-      video?.removeEventListener("error", finishLoading);
-      video?.removeEventListener("loadeddata", showVideo);
-      setLoaderPhase("leaving");
-      exitTimer = window.setTimeout(() => setLoaderPhase("done"), 500);
-    };
-
-    const fallbackTimer = window.setTimeout(finishLoading, 2500);
-    if (video && video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      showVideo();
-    } else {
-      video?.addEventListener("loadeddata", showVideo, { once: true });
-    }
-
-    if (!video || video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-      finishLoading();
-    } else {
-      video.addEventListener("canplay", finishLoading, { once: true });
-      video.addEventListener("error", finishLoading, { once: true });
-    }
-
-    return () => {
-      window.clearTimeout(fallbackTimer);
-      window.clearTimeout(exitTimer);
-      video?.removeEventListener("canplay", finishLoading);
-      video?.removeEventListener("error", finishLoading);
-      video?.removeEventListener("loadeddata", showVideo);
-    };
-  }, []);
-
   useMotion(pageRef, {
     full: () => {
       const root = pageRef.current;
@@ -91,21 +49,10 @@ export function StudioHome() {
 
   return (
     <>
-      {loaderPhase !== "done" && (
-        <div
-          className={styles.preloader + (loaderPhase === "leaving" ? " " + styles.preloaderLeaving : "")}
-          data-preloader
-          role="status"
-          aria-live="polite"
-        >
-          <p className={styles.preloaderMark} aria-hidden="true">SACRED<br />FORCE</p>
-          <p className={styles.preloaderLabel + " mono"}>PREPARANDO EL ESTUDIO</p>
-        </div>
-      )}
       <SiteHeader sectionLinks />
       <main id="contenido" ref={pageRef} className={styles.page} data-reveal>
         <section className={styles.hero} id="inicio" aria-labelledby="hero-title">
-          <video className={styles.heroVideo} autoPlay muted loop playsInline preload="auto" poster="/assets/atmosphere/studio-poster.svg" aria-label="Interior del estudio Sacred Force Tattoo">
+          <video className={styles.heroVideo} autoPlay muted loop playsInline preload="auto" poster="/assets/atmosphere/studio-poster.svg" aria-label="Interior del estudio Sacred Force Tattoo" onLoadedData={(event) => event.currentTarget.parentElement?.classList.add(styles.hasVideo)}>
             <source src="/assets/video/bg-video.mp4" type="video/mp4" />
           </video>
           <div className={styles.heroShade} />
