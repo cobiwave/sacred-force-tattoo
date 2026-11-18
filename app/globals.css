@@ -140,8 +140,9 @@ video {
 
 :where(.split-word-mask) {
   overflow: clip;
-  padding: 0.1em;
-  margin: -0.1em;
+  /* Extra bottom room so descenders (¿, g, j) survive tight line-heights. */
+  padding: 0.1em 0.1em 0.3em;
+  margin: -0.1em -0.1em -0.3em;
 }
 
 .skip-link {
