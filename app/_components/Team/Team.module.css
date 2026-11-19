@@ -27,13 +27,6 @@
 .portrait:hover img {
 	filter: grayscale(0);
 }
-.portrait > span {
-	position: absolute;
-	right: 1.4rem;
-	bottom: 1.2rem;
-	color: #4a4a48;
-	font-size: 0.85rem;
-}
 .caption {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) auto;
