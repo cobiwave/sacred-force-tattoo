@@ -1,69 +1,144 @@
 .gallery {
-  grid-auto-flow: dense;
-  grid-auto-rows: minmax(12rem, auto);
-  gap: var(--grid-gutter);
-  padding-block: 6.5rem 11rem;
-  columns: unset;
+	grid-auto-flow: dense;
+	grid-auto-rows: minmax(12rem, auto);
+	gap: var(--grid-gutter);
+	padding-block: 6.5rem 11rem;
+	columns: unset;
 }
 
 .item {
-  position: relative;
-  grid-column: span 4;
-  grid-row: span 4;
-  min-width: 0;
-  overflow: hidden;
-  padding: 0;
-  border: 0;
-  background: #242424;
-  color: #eee;
-  cursor: zoom-in;
-  text-align: left;
+	position: relative;
+	grid-column: span 4;
+	grid-row: span 4;
+	min-width: 0;
+	overflow: hidden;
+	padding: 0;
+	border: 0;
+	background: #242424;
+	color: #eee;
+	cursor: zoom-in;
+	text-align: left;
 }
 
-.item2, .item5 { grid-row: span 5; }
-.item3, .item6 { grid-row: span 3; }
-.item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: filter 0.45s ease; }
-.item:hover img, .item:focus-visible img { filter: grayscale(0); }
-.item > span { position: absolute; bottom: 1.2rem; left: 1.2rem; color: #fff; font-size: 0.85rem; }
+.item:nth-child(3n + 2) {
+	grid-row: span 5;
+}
+.item:nth-child(3n) {
+	grid-row: span 3;
+}
+.item img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	filter: grayscale(1);
+	transition: filter 0.45s ease;
+}
+.item:hover img,
+.item:focus-visible img {
+	filter: grayscale(0);
+}
+.item > span {
+	position: absolute;
+	bottom: 1.2rem;
+	left: 1.2rem;
+	color: #fff;
+	font-size: 0.85rem;
+}
 
 .lightbox {
-  position: fixed;
-  z-index: 40;
-  inset: 0;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  justify-items: center;
-  padding: 7vh 4vw;
-  background: rgb(9 9 9 / 96%);
-  color: #fff;
+	position: fixed;
+	z-index: 40;
+	inset: 0;
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	justify-items: center;
+	padding: 7vh 4vw;
+	background: rgb(9 9 9 / 96%);
+	color: #fff;
 }
 
-.lightbox button { width: 4.8rem; height: 4.8rem; border: 1px solid #777; background: transparent; color: #fff; cursor: pointer; font-size: 2.8rem; }
-.close { position: absolute; top: 4vh; right: 4vw; }
-.lightboxImage { grid-column: 2; width: min(70vw, 110rem); max-height: 80vh; object-fit: contain; }
-.previous { grid-column: 1; grid-row: 1; }
-.next { grid-column: 3; grid-row: 1; }
-.count { position: absolute; bottom: 3vh; color: #aaa; }
+.lightbox button {
+	width: 4.8rem;
+	height: 4.8rem;
+	border: 1px solid #777;
+	background: transparent;
+	color: #fff;
+	cursor: pointer;
+	font-size: 2.8rem;
+}
+.close {
+	position: absolute;
+	top: 4vh;
+	right: 4vw;
+}
+.lightboxImage {
+	grid-column: 2;
+	width: min(70vw, 110rem);
+	max-height: 80vh;
+	object-fit: contain;
+}
+.previous {
+	grid-column: 1;
+	grid-row: 1;
+}
+.next {
+	grid-column: 3;
+	grid-row: 1;
+}
+.count {
+	position: absolute;
+	bottom: 3vh;
+	color: #aaa;
+}
 
 @media (width <= 75em) {
-  .item { grid-column: span 4; }
+	.item {
+		grid-column: span 4;
+	}
 }
 
 @media (width <= 48em) {
-  .gallery { grid-auto-rows: minmax(8rem, auto); padding: 3.5rem var(--grid-margin) 7.5rem; }
-  .item { grid-column: span 2; grid-row: span 3; }
-  .item2, .item5 { grid-row: span 4; }
-  .lightbox { padding: 10vh 3vw; }
-  .lightboxImage { width: min(76vw, 70rem); }
-  .lightbox button { width: 3.8rem; height: 3.8rem; font-size: 2rem; }
+	.gallery {
+		grid-auto-rows: minmax(8rem, auto);
+		padding: 3.5rem var(--grid-margin) 7.5rem;
+	}
+	.item {
+		grid-column: span 2;
+		grid-row: span 3;
+	}
+	.item:nth-child(3n) {
+		grid-row: span 3;
+	}
+	.item:nth-child(3n + 2) {
+		grid-row: span 4;
+	}
+	.lightbox {
+		padding: 10vh 3vw;
+	}
+	.lightboxImage {
+		width: min(76vw, 70rem);
+	}
+	.lightbox button {
+		width: 3.8rem;
+		height: 3.8rem;
+		font-size: 2rem;
+	}
 }
 
 @media (width <= 32em) {
-  .gallery { grid-auto-rows: 28rem; }
-  .item, .item2, .item3, .item4, .item5, .item6 { grid-column: span 4; grid-row: span 1; }
+	.gallery {
+		grid-auto-rows: 28rem;
+	}
+	.item,
+	.item:nth-child(n) {
+		grid-column: span 4;
+		grid-row: span 1;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .item img { transition: none; }
+	.item img {
+		transition: none;
+	}
 }
